@@ -36,8 +36,3 @@ var ShortList = React.createClass({
     );
   }
 });
-
-React.render(
-  <ShortList />,
-  document.querySelector('#contactShortList')
-);

@@ -39,9 +39,4 @@ var VCardList = React.createClass({
       </div>
     );
   }
-})
-
-React.render(
-  <VCardList />,
-  document.querySelector('#contactList')
-);
+});
