@@ -24,6 +24,25 @@ module.exports = React.createClass({
       }.bind(this));
     }
   },
+  handleChange: function(event) {
+    this.state.contact[event.target.name] = event.target.value;
+    this.setState({
+      contact: this.state.contact
+    });
+  },
+  submit: function() {
+    if(this.state.contact.id !== undefined) {
+      qwest.put('/rest/contacts/' + this.state.contact.id, this.state.contact)
+      .then(function() {
+        location.search = "";
+      });
+    } else {
+      qwest.post('/rest/contacts', this.state.contact)
+      .then(function() {
+        location.search = "";
+      });
+    }
+  },
   render: function() {
     return (
       <div className="col-xs-12">
@@ -33,23 +52,23 @@ module.exports = React.createClass({
                       <form>
                           <div className="form-group">
                               <label for="firstName">First name</label>
-                              <input name="firstName" id="firstName" className="form-control" value={this.state.contact.firstName}/>
+                              <input name="firstName" id="firstName" className="form-control" onChange={this.handleChange} value={this.state.contact.firstName}/>
                           </div>
                           <div className="form-group">
                               <label for="lastName">Last name</label>
-                              <input name="lastName" id="lastName" className="form-control" value={this.state.contact.lastName}/>
+                              <input name="lastName" id="lastName" className="form-control" onChange={this.handleChange} value={this.state.contact.lastName}/>
                           </div>
                           <div className="form-group">
                               <label for="address">Address</label>
-                              <textarea rows="3" name="address" id="address" className="form-control" value={this.state.contact.address}></textarea>
+                              <textarea rows="3" name="address" id="address" className="form-control" onChange={this.handleChange} value={this.state.contact.address}></textarea>
                           </div>
                           <div className="form-group">
                               <label for="phone">Phone</label>
-                              <input name="phone" id="phone" className="form-control" value={this.state.contact.phone}/>
+                              <input name="phone" id="phone" className="form-control" onChange={this.handleChange} value={this.state.contact.phone}/>
                           </div>
                           <div className="form-group">
-                              <button className="btn btn-primary">Save</button>
-                              <a className="btn btn-link">Cancel</a>
+                              <button className="btn btn-primary" onClick={this.submit}>Save</button>
+                              <a href="/#/list" className="btn btn-link">Cancel</a>
                           </div>
                       </form>
                   </div>
