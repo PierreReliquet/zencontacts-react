@@ -1,3 +1,5 @@
 node_modules
 *.orig
 *.swp
+*~
+bundle.js

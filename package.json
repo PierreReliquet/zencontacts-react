@@ -22,6 +22,7 @@
   "homepage": "https://github.com/PierreReliquet/zencontacts-react",
   "dependencies": {
     "express": "^4.11.2",
+    "qwest": "^1.5.5",
     "react": "^0.12.2"
   }
 }
