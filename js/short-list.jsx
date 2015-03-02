@@ -8,7 +8,7 @@ module.exports = React.createClass({
             this.props.contacts.map(function(contact) {
               return (
                 <li>
-                  <a href="#/edit{contact.id}">{contact.firstName} {contact.lastName}</a>
+                  <a href={'#/edit/' + contact.id}>{contact.firstName} {contact.lastName}</a>
                 </li>
               );
             })

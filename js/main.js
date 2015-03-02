@@ -1,8 +1,8 @@
 var React = require('react');
 
-var ContactList = require('./contact-list.jsx');
+var App = require('./app.jsx');
 
 React.render(
-  <ContactList />,
+  <App />,
   document.querySelector('#view')
 );
