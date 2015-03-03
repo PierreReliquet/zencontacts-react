@@ -30,18 +30,20 @@ module.exports = React.createClass({
       contact: this.state.contact
     });
   },
-  submit: function() {
+  submit: function(event) {
     if(this.state.contact.id !== undefined) {
-      qwest.put('/rest/contacts/' + this.state.contact.id, this.state.contact)
+      qwest.put('/rest/contacts/' + this.state.contact.id, this.state.contact, {dataType: 'json', cache: false})
       .then(function() {
-        location.search = "";
+      	location.hash = "/list";
       });
     } else {
-      qwest.post('/rest/contacts', this.state.contact)
-      .then(function() {
-        location.search = "";
+      qwest.post('/rest/contacts', this.state.contact, {dataType: 'json', cache: false})
+      .then(function(response) {
+      	var contact = JSON.parse(response);
+	location.hash = "/list";
       });
     }
+    event.preventDefault();
   },
   render: function() {
     return (
@@ -49,7 +51,7 @@ module.exports = React.createClass({
           <div className="well">
               <div className="row">
                   <div className="col-xs-12 col-md-4 col-md-offset-4">
-                      <form>
+                      <form onSubmit={this.submit}>
                           <div className="form-group">
                               <label for="firstName">First name</label>
                               <input name="firstName" id="firstName" className="form-control" onChange={this.handleChange} value={this.state.contact.firstName}/>
@@ -67,7 +69,7 @@ module.exports = React.createClass({
                               <input name="phone" id="phone" className="form-control" onChange={this.handleChange} value={this.state.contact.phone}/>
                           </div>
                           <div className="form-group">
-                              <button className="btn btn-primary" onClick={this.submit}>Save</button>
+                              <input type="submit" className="btn btn-primary" value="Save" />
                               <a href="/#/list" className="btn btn-link">Cancel</a>
                           </div>
                       </form>
